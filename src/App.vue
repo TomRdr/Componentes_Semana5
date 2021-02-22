@@ -1,28 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Barlateral @select-quantity="chosenQuantity=$event"/>
+    <!--Llama al componente Barlateral 
+    e igual al compnente calculadora-->
+    <Calculadora v-bind:physicalQuantity="chosenQuantity"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Barlateral from './components/Barlateral.vue'
+import Calculadora from './components/Calculadora.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+   name: 'app',
+    components: {  /* Estrae todo lo que esta dentro de los componentes */
+    Barlateral,
+    Calculadora
+  },
+  data: function(){
+    return{
+      chosenQuantity: {name:"Tiempo", id:2, units:["s","min","h"]} 
+       /* the currently chosen quantity. Per default, the chosen quantity is TIME */
+    }
+  },
+  methods:{
+    /* ... */
+  },
+  computed: {
+    getMeasure(){
+      return this.quantities.find(x => x.name==this.chosenQuantity);
+    }
   }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body{
+    margin:0;
+    font-family:"Source Sans Pro";
+  }
+  #app{
+    display:flex;
+  }
 </style>
+
